@@ -1,0 +1,35 @@
+Config { font = "xft:Fira Code:pixelsize=16:style=Bold"-- "xft:Monokai Nerd Font:pixelsize=20:style=bold:antialias=true:hinting=true"
+       , additionalFonts = ["xft:Font Awesome 6 Free,Font Awesome 6 Free Solid:style=Solid",
+                            "xft:Font Awesome 6 Free,Font Awesome 6 Free Regular:style=Regular"]
+       , border = NoBorder
+       , bgColor = "black"
+       , alpha = 75
+       , fgColor = "#add8e6" -- "#d5552a" -- "#32CD32" -- "#89e8fc" -- "#7FFF00" --"#9400D3"
+       , position = TopH 20
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Weather "CYUL" ["-t"," <fn=1>\xf57d</fn> <station>: <tempC>C",
+                                          "-L","18","-H","25",
+                                          "--normal","green",
+                                          "--high","red",
+                                          "--low","cyan"] 36000
+                    , Run Network "wlan0" ["-L","0","-H","32", "--normal","green","--high","red"] 10
+                    , Run Network "tun0" ["-L","0","-H","32", "--normal","green","--high","red"] 10
+                    , Run Cpu ["-t", " <fn=1>\xf717</fn>", "-L","3","-H","50", "--low", "green", "--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Com "id" ["-u", "-n"] "" 36000
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%cpu% | %memory% | %wlan0% - %tun0% }\
+                    \{ %date% | %CYUL% "
+       }
+}
